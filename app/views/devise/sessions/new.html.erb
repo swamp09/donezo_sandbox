@@ -1,0 +1,33 @@
+<div class="min-h-screen bg-bg-soft flex flex-col items-center py-8">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold text-primary mb-6 text-center">ログイン</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="mb-4">
+        <%= f.label :email, "メールアドレス", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :password, "パスワード", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="mb-6">
+          <%= f.check_box :remember_me, class: "mr-2 leading-tight" %>
+          <%= f.label :remember_me, "ログイン状態を保存する", class: "text-sm text-gray-700" %>
+        </div>
+      <% end %>
+
+      <div class="flex items-center justify-between">
+        <%= f.submit "ログイン", class: "bg-accent hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+        <%= link_to "パスワードを忘れた場合", new_password_path(resource_name), class: "inline-block align-baseline font-bold text-sm text-secondary hover:text-blue-800" %>
+      </div>
+    <% end %>
+
+    <div class="mt-6 text-center">
+      <%= link_to "新規登録", new_registration_path(resource_name), class: "font-bold text-sm text-secondary hover:text-blue-800" %>
+    </div>
+  </div>
+</div>

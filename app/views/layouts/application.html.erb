@@ -16,15 +16,109 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="flex flex-col min-h-screen">
+    <!-- ヘッダー -->
+    <header class="bg-primary text-white py-3 shadow-lg">
+      <div class="container mx-auto flex justify-between items-center px-6">
+        <div class="flex items-center space-x-2">
+          <i class="fas fa-check-circle text-accent text-2xl"></i>
+          <h1 class="text-2xl font-bold tracking-tight">Donezo</h1>
+        </div>
+        <nav class="flex items-center space-x-6">
+          <%= link_to root_path, class: "flex items-center space-x-1 hover:text-accent transition-colors duration-200" do %>
+            <i class="fas fa-home"></i>
+            <span>ホーム</span>
+          <% end %>
+
+          <% if user_signed_in? %>
+            <%= link_to tasks_path, class: "flex items-center space-x-1 hover:text-accent transition-colors duration-200" do %>
+              <i class="fas fa-tasks"></i>
+              <span>タスク</span>
+            <% end %>
+
+            <div class="relative group">
+              <button class="flex items-center space-x-1 hover:text-accent transition-colors duration-200">
+                <i class="fas fa-user-circle"></i>
+                <span><%= current_user.email.split('@').first %></span>
+                <i class="fas fa-chevron-down text-xs"></i>
+              </button>
+              <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden group-hover:block">
+                <%= button_to destroy_user_session_path, method: :delete, class: "w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center" do %>
+                  <i class="fas fa-sign-out-alt mr-2"></i>
+                  <span>ログアウト</span>
+                <% end %>
+              </div>
+            </div>
+          <% else %>
+            <%= link_to new_user_session_path, class: "flex items-center space-x-1 hover:text-accent transition-colors duration-200" do %>
+              <i class="fas fa-sign-in-alt"></i>
+              <span>ログイン</span>
+            <% end %>
+
+            <%= link_to new_user_registration_path, class: "ml-4 bg-accent hover:opacity-90 text-white px-4 py-2 rounded-md shadow-sm transition-all duration-300 flex items-center space-x-1" do %>
+              <i class="fas fa-user-plus"></i>
+              <span>新規登録</span>
+            <% end %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
+    <% if notice %>
+      <div class="bg-secondary bg-opacity-20 border-l-4 border-secondary text-secondary-900 p-4 mb-4" role="alert">
+        <div class="flex items-center">
+          <i class="fas fa-info-circle mr-2"></i>
+          <span><%= notice %></span>
+        </div>
+      </div>
+    <% end %>
+
+    <% if alert %>
+      <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
+        <div class="flex items-center">
+          <i class="fas fa-exclamation-circle mr-2"></i>
+          <span><%= alert %></span>
+        </div>
+      </div>
+    <% end %>
+
+    <main class="flex-grow">
       <%= yield %>
     </main>
+
+    <!-- フッター -->
+    <footer class="bg-primary text-white py-6 mt-auto">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="flex items-center space-x-2 mb-4 md:mb-0">
+            <i class="fas fa-check-circle text-accent text-xl"></i>
+            <span class="text-xl font-semibold">Donezo</span>
+          </div>
+
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-300 hover:text-accent transition-colors duration-200">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-accent transition-colors duration-200">
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-accent transition-colors duration-200">
+              <i class="fas fa-envelope text-xl"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-700 mt-6 pt-6 text-center text-sm text-gray-400">
+          <p>&copy; 2025 Donezo. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

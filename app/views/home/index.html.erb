@@ -1,0 +1,107 @@
+<div class="bg-bg-soft">
+  <!-- ヒーローセクション -->
+  <section class="py-16 md:py-24">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+        <!-- テキストエリア -->
+        <div class="text-center md:text-left flex-1 space-y-8">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight">
+            タスク管理を<br>
+            <span class="text-accent">シンプル</span>に、
+            <span class="text-secondary">効率的</span>に
+          </h1>
+
+          <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl">
+            Donezoは、プロフェッショナルのために設計された<br class="hidden md:inline">
+            パーソナルタスク管理ツールです。
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <% if user_signed_in? %>
+              <%= link_to tasks_path, class: "btn-primary flex items-center justify-center space-x-2 py-3 px-8 text-lg" do %>
+                <i class="fas fa-tasks"></i>
+                <span>タスクを管理する</span>
+              <% end %>
+            <% else %>
+              <%= link_to new_user_registration_path, class: "btn-primary flex items-center justify-center space-x-2 py-3 px-8 text-lg" do %>
+                <i class="fas fa-user-plus"></i>
+                <span>新規登録して始める</span>
+              <% end %>
+
+              <%= link_to new_user_session_path, class: "flex items-center justify-center space-x-2 text-accent hover:text-primary transition-colors duration-200" do %>
+                <i class="fas fa-sign-in-alt"></i>
+                <span>アカウントをお持ちの方</span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- イラストエリア -->
+        <div class="flex-1 hidden md:flex justify-center relative">
+          <div class="absolute -z-10 w-72 h-72 bg-accent opacity-10 rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+          <img src="https://cdn-icons-png.flaticon.com/512/4205/4205937.png" alt="タスク管理のイラスト"
+            class="w-80 h-80 relative z-10" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 機能セクション -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-primary mb-12">主な機能</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 機能1 -->
+        <div class="card p-6 flex flex-col items-center text-center">
+          <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-user-shield text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-primary mb-2">個人専用タスク管理</h3>
+          <p class="text-gray-600">あなただけのタスクを安全に管理。他のユーザーからは見えません。</p>
+        </div>
+
+        <!-- 機能2 -->
+        <div class="card p-6 flex flex-col items-center text-center">
+          <div class="w-16 h-16 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-check-double text-accent text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-primary mb-2">シンプルな操作性</h3>
+          <p class="text-gray-600">直感的なインターフェースで、タスクの追加・完了・削除がスムーズに行えます。</p>
+        </div>
+
+        <!-- 機能3 -->
+        <div class="card p-6 flex flex-col items-center text-center">
+          <div class="w-16 h-16 bg-secondary bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-mobile-alt text-secondary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-primary mb-2">レスポンシブデザイン</h3>
+          <p class="text-gray-600">どのデバイスからでも快適にアクセス。いつでもどこでもタスク管理ができます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTAセクション -->
+  <section class="py-16 bg-primary text-white">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-6">今すぐ始めましょう</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Donezoで、あなたのタスク管理を次のレベルへ。<br>
+        無料で始められます。
+      </p>
+
+      <% if user_signed_in? %>
+        <%= link_to tasks_path, class: "bg-white text-primary hover:bg-gray-100 font-semibold py-3 px-8 rounded-md shadow-lg inline-flex items-center space-x-2" do %>
+          <i class="fas fa-tasks"></i>
+          <span>タスクを管理する</span>
+        <% end %>
+      <% else %>
+        <%= link_to new_user_registration_path, class: "bg-white text-primary hover:bg-gray-100 font-semibold py-3 px-8 rounded-md shadow-lg inline-flex items-center space-x-2" do %>
+          <i class="fas fa-user-plus"></i>
+          <span>無料で登録する</span>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+</div>

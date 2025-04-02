@@ -1,1 +1,46 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #2C3E50;   /* ダークブルー - 信頼性と専門性 */
+  --color-accent: #3498DB;    /* ブルー - 技術的なアクセント */
+  --color-secondary: #1ABC9C; /* ティール - 洗練された補色 */
+  --color-bg-soft: #F8FAFC;   /* 薄いグレー - クリーンで専門的な背景 */
+}
+
+/* 余白をリセット */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
+/* Tailwindの全体設定が適用されるように */
+body {
+  @apply bg-bg-soft text-gray-800 font-sans;
+}
+
+/* プロフェッショナルなタイポグラフィ */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-semibold tracking-tight;
+}
+
+/* 共通のカードスタイル */
+.card {
+  @apply bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden transition-all duration-300;
+}
+
+/* 共通のボタンスタイル */
+.btn-primary {
+  @apply bg-primary hover:opacity-90 text-white font-medium px-4 py-2 rounded-md shadow-sm transition-all duration-300;
+}
+
+.btn-accent {
+  @apply bg-accent hover:opacity-90 text-white font-medium px-4 py-2 rounded-md shadow-sm transition-all duration-300;
+}
+
+/* フォーム要素のスタイル */
+input, select, textarea {
+  @apply border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all duration-300;
+}

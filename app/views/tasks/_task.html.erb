@@ -1,0 +1,35 @@
+<div id="task_<%= task.id %>" class="py-4 first:pt-0 last:pb-0">
+  <div class="flex items-center justify-between group">
+    <div class="flex items-center flex-1 min-w-0">
+      <%= form_with model: task, url: task_path(task), method: :patch, data: { turbo_frame: "tasks" }, class: "mr-3" do |f| %>
+        <div class="relative">
+          <%= f.check_box :completed,
+                         checked: task.completed,
+                         class: "w-5 h-5 rounded border-gray-300 text-accent focus:ring-accent cursor-pointer" %>
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none <%= task.completed ? 'opacity-100' : 'opacity-0' %> transition-opacity duration-200">
+            <i class="fas fa-check text-xs text-white"></i>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="flex-1 min-w-0">
+        <p class="<%= task.completed ? 'line-through text-gray-400' : 'text-gray-800' %> truncate transition-all duration-200">
+          <%= task.title %>
+        </p>
+        <p class="text-xs text-gray-500 mt-1">
+          <i class="far fa-clock mr-1"></i><%= task.created_at.strftime("%Y/%m/%d %H:%M") %>
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center">
+      <% if task.completed %>
+        <span class="text-xs bg-secondary text-white px-2 py-0.5 rounded-full mr-3">完了済み</span>
+      <% end %>
+
+      <%= button_to task_path(task), method: :delete, data: { turbo_frame: "tasks" }, class: "text-gray-400 hover:text-red-500 transition-colors duration-200 opacity-0 group-hover:opacity-100" do %>
+        <i class="fas fa-trash-alt"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

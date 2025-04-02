@@ -1,0 +1,15 @@
+<!-- タスク追加フォーム -->
+<div class="card p-6 mb-8">
+  <h2 class="text-lg font-semibold text-primary mb-4">
+    <i class="fas fa-plus-circle mr-2"></i>新しいタスクを追加
+  </h2>
+
+  <%= form_with model: Task.new, url: tasks_path, method: :post, data: { turbo_frame: "_top" }, class: "flex flex-col sm:flex-row gap-4" do |f| %>
+    <div class="flex-grow">
+      <%= f.text_field :title, placeholder: "タスクを入力してください", class: "w-full", required: true %>
+    </div>
+    <%= f.button type: "submit", class: "btn-accent whitespace-nowrap flex items-center justify-center" do %>
+      <i class="fas fa-plus mr-2"></i>追加
+    <% end %>
+  <% end %>
+</div>

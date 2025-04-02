@@ -1,0 +1,11 @@
+<ul class="w-full max-w-2xl">
+  <% if tasks.any? %>
+    <% tasks.each do |task| %>
+      <%= render task %>
+    <% end %>
+  <% else %>
+    <li class="bg-white shadow p-4 mb-2 rounded text-center text-gray-500">
+      タスクがありません。新しいタスクを追加してください。
+    </li>
+  <% end %>
+</ul>
