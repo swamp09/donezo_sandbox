@@ -15,21 +15,50 @@
         <% end %>
 
         <div class="flex-1 min-w-0">
-          <p class="<%= task.completed ? 'line-through text-gray-400' : 'text-gray-800' %> truncate transition-all duration-200">
-            <%= task.title %>
-          </p>
+          <div class="flex items-center">
+            <p class="<%= task.completed ? 'line-through text-gray-400' : 'text-gray-800' %> truncate transition-all duration-200">
+              <%= task.title %>
+            </p>
+            <% if task.in_progress? %>
+              <span class="ml-2 text-xs bg-accent text-white px-2 py-0.5 rounded-full animate-pulse"
+                    data-controller="timer"
+                    data-timer-started-at-value="<%= task.started_at&.iso8601 %>"
+                    data-timer-elapsed-time-value="<%= task.elapsed_time || 0 %>">
+                <i class="fas fa-play-circle mr-1"></i>
+                <span data-timer-target="display"><%= task.formatted_elapsed_time %></span>
+              </span>
+            <% end %>
+          </div>
           <p class="text-xs text-gray-500 mt-1">
             <i class="far fa-clock mr-1"></i><%= task.created_at.strftime("%Y/%m/%d %H:%M") %>
+            <% if task.elapsed_time && task.elapsed_time > 0 && !task.in_progress? %>
+              <span class="ml-2">
+                <i class="fas fa-stopwatch mr-1"></i>合計: <%= task.formatted_elapsed_time %>
+              </span>
+            <% end %>
           </p>
         </div>
       </div>
 
-      <div class="flex items-center">
+      <div class="flex items-center space-x-2">
         <% if task.completed %>
-          <span class="text-xs bg-secondary text-white px-2 py-0.5 rounded-full mr-3">完了済み</span>
+          <span class="text-xs bg-secondary text-white px-2 py-0.5 rounded-full">完了済み</span>
+        <% elsif task.in_progress? %>
+          <div class="flex space-x-1">
+            <%= button_to task_state_path(task), method: :patch, params: { state: 'stopped' }, data: { turbo_frame: dom_id(task) }, class: "text-red-500 hover:text-red-700 transition-colors duration-200 bg-gray-100 hover:bg-gray-200 rounded-full p-2" do %>
+              <i class="fas fa-pause"></i>
+            <% end %>
+            <%= link_to task_focus_path(task), class: "text-accent hover:text-accent-dark transition-colors duration-200 bg-gray-100 hover:bg-gray-200 rounded-full p-2" do %>
+              <i class="fas fa-expand"></i>
+            <% end %>
+          </div>
+        <% else %>
+          <%= button_to task_state_path(task), method: :patch, params: { state: 'in_progress' }, data: { turbo_frame: dom_id(task) }, class: "text-accent hover:text-accent-dark transition-colors duration-200 bg-gray-100 hover:bg-gray-200 rounded-full p-2" do %>
+            <i class="fas fa-play"></i>
+          <% end %>
         <% end %>
 
-        <%= button_to task_path(task), method: :delete, data: { turbo_frame: dom_id(task) }, class: "text-gray-400 hover:text-red-500 transition-colors duration-200 opacity-0 group-hover:opacity-100" do %>
+        <%= button_to task_path(task), method: :delete, data: { turbo_frame: dom_id(task) }, class: "text-gray-400 hover:text-red-500 transition-colors duration-200 opacity-0 group-hover:opacity-100 bg-gray-100 hover:bg-gray-200 rounded-full p-2" do %>
           <i class="fas fa-trash-alt"></i>
         <% end %>
       </div>

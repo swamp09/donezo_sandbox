@@ -15,5 +15,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'home#index'
 
-  resources :tasks, only: [:index, :create, :update, :destroy]
+  resources :tasks, only: [:index, :create, :update, :destroy] do
+    resource :state, only: [:update], controller: 'task_states'
+    resource :focus, only: [:show], controller: 'task_focuses'
+  end
 end

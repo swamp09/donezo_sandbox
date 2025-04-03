@@ -1,29 +1,20 @@
+// frozen_string_literal: true
+
 import { Controller } from "@hotwired/stimulus"
 
-// タスクの状態を管理するコントローラー
+// タイマーを管理するコントローラー
 export default class extends Controller {
-  static targets = ["checkbox", "form", "timer"]
+  static targets = ["display"]
   static values = {
     startedAt: String,
     elapsedTime: Number
   }
 
   connect() {
-    // タイマーの初期化（タスク詳細画面用）
-    if (this.hasTimerTarget) {
-      this.initializeTimer()
-    }
-  }
-
-  // チェックボックスの状態が変更されたときに呼び出される
-  toggle() {
-    this.formTarget.requestSubmit()
-  }
-
-  // タイマーの初期化
-  initializeTimer() {
+    // 初期値の設定
     this.totalSeconds = this.elapsedTimeValue || 0
 
+    // タスクが実行中の場合、タイマーを開始
     if (this.startedAtValue) {
       const startedAt = new Date(this.startedAtValue)
       const now = new Date()
@@ -32,28 +23,28 @@ export default class extends Controller {
       this.startTimer()
     }
 
-    this.updateTimerDisplay()
+    // 初期表示を更新
+    this.updateDisplay()
   }
 
-  // タイマーの開始
+  disconnect() {
+    this.stopTimer()
+  }
+
   startTimer() {
     this.timerInterval = setInterval(() => {
       this.totalSeconds += 1
-      this.updateTimerDisplay()
+      this.updateDisplay()
     }, 1000)
   }
 
-  // タイマーの停止
   stopTimer() {
     if (this.timerInterval) {
       clearInterval(this.timerInterval)
     }
   }
 
-  // タイマー表示の更新
-  updateTimerDisplay() {
-    if (!this.hasTimerTarget) return
-
+  updateDisplay() {
     const hours = Math.floor(this.totalSeconds / 3600)
     const minutes = Math.floor((this.totalSeconds % 3600) / 60)
     const seconds = this.totalSeconds % 60
@@ -65,6 +56,6 @@ export default class extends Controller {
       displayText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
     }
 
-    this.timerTarget.textContent = displayText
+    this.displayTarget.textContent = displayText
   }
 }

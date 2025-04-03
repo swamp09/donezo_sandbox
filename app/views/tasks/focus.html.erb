@@ -1,0 +1,63 @@
+<div class="min-h-screen bg-bg-soft flex flex-col">
+  <div class="container mx-auto px-4 py-8 flex-grow">
+    <div class="max-w-4xl mx-auto">
+      <!-- 戻るリンク -->
+      <div class="mb-6">
+        <%= link_to tasks_path, class: "text-accent hover:text-accent-dark transition-colors duration-200 flex items-center" do %>
+          <i class="fas fa-arrow-left mr-2"></i>タスク一覧に戻る
+        <% end %>
+      </div>
+
+      <!-- タスクフォーカス -->
+      <div class="card p-8 mb-8">
+        <div class="text-center mb-8">
+          <!-- タイマー表示 -->
+          <div class="text-6xl font-mono font-bold text-primary mb-4" data-controller="timer" data-timer-started-at-value="<%= @task.started_at&.iso8601 %>" data-timer-elapsed-time-value="<%= @task.elapsed_time || 0 %>">
+            <span data-timer-target="display">
+              <%= @task.formatted_elapsed_time %>
+            </span>
+          </div>
+
+          <!-- タスクタイトル -->
+          <h1 class="text-2xl font-bold text-gray-800 mb-2">
+            <%= @task.title %>
+          </h1>
+          <p class="text-sm text-gray-500">
+            <i class="far fa-clock mr-1"></i><%= @task.created_at.strftime("%Y/%m/%d %H:%M") %>
+          </p>
+        </div>
+
+        <!-- コントロールボタン -->
+        <div class="flex justify-center space-x-4">
+          <% if @task.in_progress? %>
+            <%= button_to task_state_path(@task), method: :patch, params: { state: 'stopped' }, class: "btn-danger flex items-center" do %>
+              <i class="fas fa-pause mr-2"></i>停止
+            <% end %>
+          <% else %>
+            <%= button_to task_state_path(@task), method: :patch, params: { state: 'in_progress' }, class: "btn-accent flex items-center" do %>
+              <i class="fas fa-play mr-2"></i>開始
+            <% end %>
+          <% end %>
+
+          <%= button_to task_path(@task), method: :patch, params: { task: { completed: true } }, class: "btn-secondary flex items-center" do %>
+            <i class="fas fa-check mr-2"></i>完了
+          <% end %>
+
+          <%= button_to task_path(@task), method: :delete, class: "btn-outline flex items-center", data: { confirm: "本当に削除しますか？" } do %>
+            <i class="fas fa-trash-alt mr-2"></i>削除
+          <% end %>
+        </div>
+      </div>
+
+      <!-- 次のタスク -->
+      <% if @next_task %>
+        <div class="card p-6">
+          <h2 class="text-lg font-semibold text-primary mb-4">
+            <i class="fas fa-arrow-right mr-2"></i>次のタスク
+          </h2>
+          <%= render @next_task %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

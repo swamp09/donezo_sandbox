@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_02_042045) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_03_074400) do
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.boolean "completed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.boolean "in_progress", default: false
+    t.datetime "started_at"
+    t.integer "elapsed_time", default: 0
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
