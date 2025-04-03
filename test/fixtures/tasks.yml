@@ -1,9 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
+shopping:
+  title: 買い物リスト作成
   completed: false
+  user: alice
 
-two:
-  title: MyString
+study:
+  title: Railsの勉強
+  completed: true
+  user: alice
+
+meeting:
+  title: チーム会議の準備
   completed: false
+  user: bob
+
+report:
+  title: 週次レポート作成
+  completed: false
+  user: bob
