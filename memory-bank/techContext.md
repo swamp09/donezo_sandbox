@@ -4,7 +4,7 @@
 
 ### バックエンド
 - **Ruby on Rails**: Webアプリケーションフレームワーク
-- **PostgreSQL**: リレーショナルデータベース
+- **SQLite**: リレーショナルデータベース
 - **Devise**: ユーザー認証
 - **Puma**: Webサーバー
 
@@ -14,21 +14,18 @@
   - **Stimulus**: JavaScript動作を追加
 - **Tailwind CSS**: ユーティリティファーストのCSSフレームワーク
 - **Font Awesome**: アイコンライブラリ
+- **Importmap**: JavaScriptモジュールの管理
 
 ### 開発ツール
-- **RSpec**: テスティングフレームワーク
+- **Minitest**: テスティングフレームワーク
 - **Capybara**: システムテスト用ライブラリ
 - **RuboCop**: コード品質チェック
-- **Brakeman**: セキュリティ脆弱性スキャン
-- **Importmap**: JavaScriptモジュールの管理
 
 ## 開発環境セットアップ
 
 ### 必要条件
-- Ruby 3.2.0以上
-- PostgreSQL 14以上
-- Node.js 18以上（アセットコンパイル用）
-- Yarn 1.22以上
+- Ruby 3.4.0以上
+- SQLite 3以上
 
 ### 開発環境構築手順
 1. リポジトリのクローン
@@ -56,14 +53,7 @@
 ## 依存関係管理
 
 ### Gemfile
-主要な依存関係:
-- rails (~> 7.1.0)
-- pg (>= 1.1)
-- puma (~> 6.0)
-- devise (~> 4.9)
-- tailwindcss-rails (~> 2.0)
-- stimulus-rails (~> 1.2)
-- turbo-rails (~> 1.4)
+Gemfileを見ろ
 
 ### アセット管理
 - CSS: Tailwind CSSを使用
@@ -73,27 +63,18 @@
 ## デプロイメント
 
 ### 本番環境
-- **ホスティング**: Heroku/AWS/Render等
-- **データベース**: PostgreSQL
-- **アセット配信**: CDN経由
-- **CI/CD**: GitHub Actionsを使用した自動デプロイ
+未定
 
 ### デプロイプロセス
-1. テストの実行
-2. アセットのプリコンパイル
-3. データベースマイグレーション
-4. アプリケーションの再起動
+未定
 
 ## モニタリングとロギング
-- **エラートラッキング**: Sentry/Honeybadger等
-- **パフォーマンスモニタリング**: New Relic/Scout APM等
-- **ログ管理**: Papertrail/CloudWatch Logs等
+未定
 
 ## 開発プラクティス
 
 ### コーディング規約
 - RuboCopの設定に従う
-- 文字列リテラルにはシングルクォーテーションを使用
 - すべての.rbファイルの先頭に`frozen_string_literal: true`マジックコメントを追加
 - viewではdom_idメソッドを使用
 - controllerではresource_dom_idメソッドを使用
@@ -106,5 +87,3 @@
 
 ### バージョン管理
 - Git: ブランチベースの開発
-- プルリクエスト: コードレビュープロセス
-- セマンティックバージョニング: リリース管理
