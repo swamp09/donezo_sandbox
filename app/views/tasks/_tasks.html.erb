@@ -1,11 +1,14 @@
-<ul class="w-full max-w-2xl">
-  <% if tasks.any? %>
+<% if tasks.any? %>
+  <div class="divide-y">
     <% tasks.each do |task| %>
       <%= render task %>
     <% end %>
-  <% else %>
-    <li class="bg-white shadow p-4 mb-2 rounded text-center text-gray-500">
-      タスクがありません。新しいタスクを追加してください。
-    </li>
-  <% end %>
-</ul>
+  </div>
+<% else %>
+  <div class="py-8 text-center">
+    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+      <i class="fas fa-clipboard-list text-gray-400 text-2xl"></i>
+    </div>
+    <p class="text-gray-500">タスクがありません。新しいタスクを追加してください。</p>
+  </div>
+<% end %>

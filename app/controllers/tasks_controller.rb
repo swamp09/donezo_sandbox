@@ -21,14 +21,13 @@ class TasksController < ApplicationController
 
   def update
     @task.update(task_params)
-    @tasks = current_user.tasks.order(created_at: :desc)
-    render turbo_stream: turbo_stream.replace('tasks', partial: 'tasks/tasks', locals: { tasks: @tasks })
+    render turbo_stream: turbo_stream.replace(resource_dom_id(@task), partial: 'tasks/task', locals: { task: @task })
   end
 
   def destroy
+    task_id = resource_dom_id(@task)
     @task.destroy
-    @tasks = current_user.tasks.order(created_at: :desc)
-    render turbo_stream: turbo_stream.replace('tasks', partial: 'tasks/tasks', locals: { tasks: @tasks })
+    render turbo_stream: turbo_stream.remove(task_id)
   end
 
   private
