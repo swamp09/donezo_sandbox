@@ -11,8 +11,8 @@ class TasksController < ApplicationController
     if @task.save
       @tasks = current_user.tasks.order(created_at: :desc)
       render turbo_stream: [
-        turbo_stream.replace("tasks", partial: "tasks/tasks", locals: { tasks: @tasks }),
-        turbo_stream.replace("task_form", partial: "tasks/form")
+        turbo_stream.replace('tasks', partial: 'tasks/tasks', locals: { tasks: @tasks }),
+        turbo_stream.replace('task_form', partial: 'tasks/form')
       ]
     else
       render :index, status: :unprocessable_entity
@@ -22,13 +22,13 @@ class TasksController < ApplicationController
   def update
     @task.update(task_params)
     @tasks = current_user.tasks.order(created_at: :desc)
-    render turbo_stream: turbo_stream.replace("tasks", partial: "tasks/tasks", locals: { tasks: @tasks })
+    render turbo_stream: turbo_stream.replace('tasks', partial: 'tasks/tasks', locals: { tasks: @tasks })
   end
 
   def destroy
     @task.destroy
     @tasks = current_user.tasks.order(created_at: :desc)
-    render turbo_stream: turbo_stream.replace("tasks", partial: "tasks/tasks", locals: { tasks: @tasks })
+    render turbo_stream: turbo_stream.replace('tasks', partial: 'tasks/tasks', locals: { tasks: @tasks })
   end
 
   private
