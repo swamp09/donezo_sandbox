@@ -12,7 +12,7 @@ class Task < ApplicationRecord
   # タスクを実行中にする
   def start_task
     # 他の実行中タスクがあれば停止する
-    Task.in_progress.where.not(id: id).update_all(in_progress: false)
+    user.tasks.in_progress.where.not(id: id).update_all(in_progress: false)
 
     update(
       in_progress: true,
